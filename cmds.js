@@ -232,6 +232,10 @@ log(`${colorize('Se ha añadido','magenta')}: ${quiz.question} ${colorize('=>','
         if(contador===0){ 
         
                   log(`Fin del juego. Aciertos ${colorize(score,'magenta')}`); 
+                  validateId(1)
+ .then(()  => {   rl.prompt();
+
+})
 
              return;
 
@@ -262,6 +266,10 @@ log(`${colorize('Se ha añadido','magenta')}: ${quiz.question} ${colorize('=>','
                   else{
 
                         log(`Fin del juego. Su respuesta es incorrecta. Aciertos ${colorize(score,'magenta')}`); 
+                        validateId(1)
+ .then(()  => {   rl.prompt();
+
+})
                           return;
             }           
                   }); 
@@ -275,14 +283,8 @@ models.quiz.findAll({raw: true})
 .then(() => {
 
 return play(); })
-.catch(error => {
-       errorlog(error.message);
-  rl.prompt();
-     })
-    
-    .then(()  => { 
-    
-    rl.prompt();
+validateId(1)
+ .then(()  => {   rl.prompt();
 
 })
 
