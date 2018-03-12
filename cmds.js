@@ -366,5 +366,7 @@ errorlog('El quiz es erroneo:');
     exports.creditsCmd=rl=>{
     console.log("Jose Tome Mayo");
     console.log("josetomemayo");
+    console.log("Susanacoiraserrano");
+
     rl.prompt();
 };
