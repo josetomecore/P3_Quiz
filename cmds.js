@@ -2,6 +2,8 @@
 const Sequelize = require('sequelize');
 const {log, biglog, errorlog, colorize} = require("./out");
 const {models} = require('./model');
+const {quizzes} = require('./quizzes');
+
 
 
 exports.helpCmd=rl=>{
@@ -212,45 +214,26 @@ log(`${colorize('Se ha añadido','magenta')}: ${quiz.question} ${colorize('=>','
   
     };
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    exports.playCmd=rl=>{
+exports.playCmd = rl => {
+  let score = 0;
+  let toBePlayed = [];
+let pp=3
+  const playOne = () => {
+    
+    
 
-        let score = 0; 
-      let contador = 4; 
-        let toBeResolved=[]; 
-      
-            for (i=1; i<5; i++){ 
-        
-          toBeResolved[i-1]=i; 
- 
-            } 
-       validateId(1)
-        const play = () => { 
+    return Promise.resolve()
+    .then (() => {
+      if (toBePlayed.length <= 0 || pp===-1) {
+        console.log("SACABO");
+        return;
+      }
+      let pos =Math.round(Math.random()*(toBePlayed.length+0)+parseInt(0));
+      let quiz = toBePlayed[pp];
+      pp--;
+      //toBePlayed.splice(pos, 1);
 
-      return Promise.resolve()
-      .then(() => {
-       
-        if(contador===0){ 
-        
-                 log(score);
-      log("se termino el juego");
- 
-
-             
-
-            } 
-              else{ 
-          
-                  let idaux= Math.round(Math.random()*(toBeResolved.length -1));
-                  let id= toBeResolved[idaux];
-  
-                  validateId(id)
-                  .then(id => models.quiz.findById(id))
-                        .then(quiz => {
-
-          toBeResolved.splice(idaux,1);
-              contador --;    
-
-              return makeQuestion(rl, quiz.question)
+     return makeQuestion(rl, quiz.question)
     
                 .then ( a =>{
 
@@ -258,7 +241,7 @@ log(`${colorize('Se ha añadido','magenta')}: ${quiz.question} ${colorize('=>','
 
                         score++; 
                        log("CORRECTO - Lleva "+score+" aciertos"); 
-                                return play();
+                                return playOne();
 
                   }
                   else{
@@ -268,30 +251,30 @@ log(`${colorize('Se ha añadido','magenta')}: ${quiz.question} ${colorize('=>','
 
                           
             }           
-                  })
-                .then(() => {
-   
+                  }) 
+    })
+  }
+
+  models.quiz.findAll({raw: true})
+  .then(quizzes => {
+    toBePlayed = quizzes;
+  })
+  .then(() => {
+    return playOne();
+  })
+  .catch(e => {
+    console.log("error: " + e);
+  })
+  .then(() => {
+    console.log(score);
     rl.prompt();
   })
-                 })
-    
-       };  
-  })
-.then(() => {
-   
-    rl.prompt();
-  });
-
-        };
+};
 
 
 
 
-     play();
-  
 
-
-   };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    exports.deleteCmd=(rl,id)=>{
@@ -311,6 +294,9 @@ log(`${colorize('Se ha añadido','magenta')}: ${quiz.question} ${colorize('=>','
 
 })
     };
+
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    exports.editCmd=(rl,id)=>{
