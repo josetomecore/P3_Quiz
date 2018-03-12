@@ -231,7 +231,8 @@ log(`${colorize('Se ha añadido','magenta')}: ${quiz.question} ${colorize('=>','
        
         if(contador===0){ 
         
-                  log(`Fin del juego. Aciertos ${colorize(score,'magenta')}`); 
+                  log("Fin del juego.")
+                  log(`Aciertos ${colorize(score,'magenta')}`); 
  
 
              return;
@@ -256,13 +257,15 @@ log(`${colorize('Se ha añadido','magenta')}: ${quiz.question} ${colorize('=>','
                   if (quiz.answer===a) {
 
                         score++; 
-                        log(`Su respuesta es correcta. Aciertos ${colorize(score,'magenta')}`); 
+                        log("Su respuesta es correcta.")
+                        log(`Aciertos ${colorize(score,'magenta')}`); 
                                 return play();
 
                   }
                   else{
 
-                        log(`Fin del juego. Su respuesta es incorrecta. Aciertos ${colorize(score,'magenta')}`); 
+                        log("Fin del juego.")
+                        log(`Su respuesta es incorrecta. Aciertos ${colorize(score,'magenta')}`); 
 
                           
             }           
