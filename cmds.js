@@ -214,7 +214,7 @@ log(`${colorize('Se ha añadido','magenta')}: ${quiz.question} ${colorize('=>','
   
     };
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-exports.playCmd = rl => {
+/*exports.playCmd = rl => {
   let score = 0;
   let toBePlayed = [];
 
@@ -271,7 +271,52 @@ exports.playCmd = rl => {
     rl.prompt();
   })
 };
+*/
+exports.playCmd = rl => {
+  let score = 0;
+  let toBePlayed = [];
 
+  const playOne = () => {
+
+    return Promise.resolve()
+    .then (() => {
+      if (toBePlayed.length <= 0) {
+        log("Fin del juego. Aciertos "+score);
+     biglog(score,'magenta')  ; 
+        return;
+      }
+      let pos = Math.round(Math.random()*(toBePlayed.length-1+0)+parseInt(0));
+      let quiz = toBePlayed[pos];
+
+      toBePlayed.splice(pos, 1);
+
+      return makeQuestion(rl, quiz.question)
+      .then(answer => {
+        if(answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim()) {
+          score++;
+         log("CORRECTO - Lleva "+score+" aciertos");
+          return playOne();
+        } else {
+         log("Su respuesta es incorrecta.");
+        }
+      })
+    })
+  }
+
+  models.quiz.findAll({raw: true})
+  .then(quizzes => {
+    toBePlayed = quizzes;
+  })
+  .then(() => {
+    return playOne();
+  })
+  .catch(e => {
+    console.log("error: " + e);
+  })
+  .then(() => {
+    rl.prompt();
+  })
+};
 
 
 
