@@ -223,7 +223,7 @@ log(`${colorize('Se ha añadido','magenta')}: ${quiz.question} ${colorize('=>','
           toBeResolved[i-1]=i; 
  
             } 
-       
+       validateId(1)
         const play = () => { 
 
       return Promise.resolve()
@@ -232,10 +232,7 @@ log(`${colorize('Se ha añadido','magenta')}: ${quiz.question} ${colorize('=>','
         if(contador===0){ 
         
                   log(`Fin del juego. Aciertos ${colorize(score,'magenta')}`); 
-                  validateId(1)
- .then(()  => {   rl.prompt();
-
-})
+ 
 
              return;
 
@@ -266,22 +263,30 @@ log(`${colorize('Se ha añadido','magenta')}: ${quiz.question} ${colorize('=>','
                   else{
 
                         log(`Fin del juego. Su respuesta es incorrecta. Aciertos ${colorize(score,'magenta')}`); 
-                        validateId(1)
- .then(()  => {   rl.prompt();
 
-})
-                          return;
+                          
             }           
-                  }); 
+                  })
+                .then(() => {
+   
+    rl.prompt();
+  })
                  })
     
        };  
+  })
+.then(() => {
+   
+    rl.prompt();
   });
 
         };
 
 
- play(); 
+
+
+     play();
+  
 
 
    };
