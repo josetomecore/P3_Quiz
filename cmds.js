@@ -279,14 +279,10 @@ log(`${colorize('Se ha añadido','magenta')}: ${quiz.question} ${colorize('=>','
   });
 
         };
-models.quiz.findAll({raw: true})
-.then(() => {
 
-return play(); })
-validateId(1)
- .then(()  => {   rl.prompt();
 
-})
+return play(); 
+
 
    };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
