@@ -67,7 +67,7 @@ rl.close();
 log(`${colorize('Se ha añadido','magenta')}: ${quiz.question} ${colorize('=>','magenta')} ${quiz.answer}`);
 
 })
-           .catch(Sequelize, ValidationError, error => {
+           .catch(Sequelize.ValidationError, error => {
 
             errorlog('El quiz es erroneo:');
             error.errors.forEach(({message}) => errorlog(message));
@@ -217,21 +217,22 @@ log(`${colorize('Se ha añadido','magenta')}: ${quiz.question} ${colorize('=>','
 exports.playCmd = rl => {
   let score = 0;
   let toBePlayed = [];
-let pp=3
+
   const playOne = () => {
     
     
 
     return Promise.resolve()
     .then (() => {
-      if (toBePlayed.length <= 0 || pp===-1) {
+      if (toBePlayed.length <= 0 ) {
         console.log("SACABO");
         return;
       }
-      let pos =Math.round(Math.random()*(toBePlayed.length+0)+parseInt(0));
-      let quiz = toBePlayed[pp];
-      pp--;
-      //toBePlayed.splice(pos, 1);
+      let pos =Math.round(Math.random()*(toBePlayed.length-1+0)+parseInt(0));
+      let quiz = toBePlayed[pos];
+      
+      
+      toBePlayed.splice(pos, 1);
 
      return makeQuestion(rl, quiz.question)
     
