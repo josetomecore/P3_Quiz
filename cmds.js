@@ -281,7 +281,8 @@ exports.playCmd = rl => {
     return Promise.resolve()
     .then (() => {
       if (toBePlayed.length <= 0) {
-        log("Fin del juego. Aciertos "+score);
+        log("Fin del juego. ")
+        log("a obtenido Aciertos "+score);
      biglog(score,'magenta')  ; 
         return;
       }
@@ -295,10 +296,13 @@ exports.playCmd = rl => {
         if(answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim()) {
           score++;
          log("Su respuesta es correcta.");
-         log("Lleva "+ score +" aciertos")
+         if(toBePlayed.length > 0){
+         log("Lleva "+ score +" aciertos")}
           return playOne();
         } else {
          log("Su respuesta es incorrecta.");
+         log("Fin del juego. ")
+        log("a obtenido "+ score +" Aciertos ");
         }
       })
     })
@@ -402,7 +406,7 @@ errorlog('El quiz es erroneo:');
     exports.creditsCmd=rl=>{
     console.log("Jose Tome Mayo");
     console.log("josetomemayo");
-    console.log("Susanacoiraserrano");
+    
 
     rl.prompt();
 };
