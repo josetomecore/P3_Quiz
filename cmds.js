@@ -281,7 +281,7 @@ log(`${colorize('Se ha añadido','magenta')}: ${quiz.question} ${colorize('=>','
         };
 
 
-return play(); 
+ play(); 
 
 
    };
