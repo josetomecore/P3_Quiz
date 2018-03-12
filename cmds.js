@@ -294,7 +294,7 @@ exports.playCmd = rl => {
       .then(answer => {
         if(answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim()) {
           score++;
-         log("Su respuesta es incorrecta.");
+         log("Su respuesta es correcta.");
          log("Lleva "+ score +" aciertos")
           return playOne();
         } else {
